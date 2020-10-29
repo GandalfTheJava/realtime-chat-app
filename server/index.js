@@ -2,7 +2,7 @@ const express = require('express');
 const socketio = require('socket.io');
 const http = require('http');
 const router = require('./router');
-
+const cors = require('cors');
 const { addUser, removeUser, getUser, getUsersInRoom } = require('./users');
 
 const PORT = process.env.PORT || 5000;
@@ -44,4 +44,5 @@ io.on('connection', (socket) => {
     })
 })
 app.use(router);
+app.use(cors);
 server.listen(PORT, () => console.log(`Server started successfully on ${PORT}`));
