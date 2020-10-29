@@ -25,13 +25,11 @@ io.on('connection', (socket) => {
         socket.emit('message', {user: 'admin', text: `Welcome to ${user.room}, ${user.name}!`}); //Greet user to the chat
         socket.broadcast.to(user.room).emit('message', {user:'admin', text: `${user.name} has joined!`}); //Broadcast greeting to everyone else
         socket.join(user.room);
-
         callback();
     })
 
     socket.on('sendMessage', (message,callback) => {
         const user = getUser(socket.id); //Get user sending message
-        console.log(user.room);
         io.to(user.room).emit('message', { user: user.name, text: message});
         callback();
     })
