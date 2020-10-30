@@ -5,7 +5,6 @@ import InfoBar from '../InfoBar/InfoBar';
 import Input from '../Input/Input';
 import Messages from '../Messages/Messages';
 import TextContainer from '../TextContainer/TextContainer';
-
 import './Chat.css';
 
 let socket;
@@ -16,7 +15,7 @@ const Chat = ({ location }) => {
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
     const [users, setUsers] = useState([]);
-    const ENDPOINT = 'https://realtime-chattyy.herokuapp.com/';
+    const ENDPOINT = 'https://realtime-chatapp-backend.herokuapp.com';
 
     useEffect(() => {
         const { name, room } = queryString.parse(location.search);

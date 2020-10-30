@@ -1,19 +1,20 @@
+const http = require('http');
 const express = require('express');
 const socketio = require('socket.io');
-const http = require('http');
-const router = require('./router');
 const cors = require('cors');
+
 const { addUser, removeUser, getUser, getUsersInRoom } = require('./users');
 
-const PORT = process.env.PORT || 5000;
+const router = require('./router');
 
 const app = express();
-
 const server = http.createServer(app);
-
 const io = socketio(server);
 
-//Star the socket.io connection
+app.use(cors());
+app.use(router);
+
+//Start the socket.io connection
 io.on('connection', (socket) => {
     console.log('We have a new connection.');
 
@@ -43,6 +44,4 @@ io.on('connection', (socket) => {
         if(user) io.to(user.room).emit('message', {user:'admin', text:`${user.name} has left the chat.`});
     })
 })
-app.use(router);
-app.use(cors);
-server.listen(PORT);
+server.listen(process.env.PORT);
