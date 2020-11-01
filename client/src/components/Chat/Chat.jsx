@@ -21,6 +21,9 @@ const Chat = ({ location }) => {
         const { name, room } = queryString.parse(location.search);
         setName(name);
         setRoom(room);
+
+
+
         socket = io(ENDPOINT);
         socket.emit('join', { name, room }, () => {
 
